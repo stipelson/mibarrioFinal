@@ -1,41 +1,11 @@
 <?php
-	include_once '../Controladores/Controlador_Usuario.php';
-	include_once '../Modelos/Modelo_Usuario.php';
+	include_once '../class/Validacion_Usuario.php';
 
-	$num_id = $_REQUEST['n_id'];
-	$nombres= $_REQUEST['nom'];
-	$apellidos= $_REQUEST['apell'];
-	$usuario= $_REQUEST['usu'];
-	$password= $_REQUEST['pass'];
-	$pregunta= $_REQUEST['pregun'];
-	$respuesta= $_REQUEST['respues'];
-	$tipoid= $_REQUEST['tipo_id'];
-	$ciudad= $_REQUEST['ciud'];
-	$direccion= $_REQUEST['dire'];
-	$edad= $_REQUEST['_edad'];
-	$foto= $_REQUEST['fot'];
-	$celular= $_REQUEST['celu'];
-	$email= $_REQUEST['e_mail'];
-	$genero= $_REQUEST['gene'];
-	$perfil= $_REQUEST['perfi'];
+	$c_usuario = new Validar_Usuario();
+	$c_usuario->validar_Crear_Usuario($_REQUEST['n_id'], $_REQUEST['usu'], $_REQUEST['pass'], $_REQUEST['nom'], $_REQUEST['apell'], 
+						$_REQUEST['dire'], $_REQUEST['e_mail'], $_REQUEST['tipo_id'], $_REQUEST['ciud'], $_REQUEST['pregun'], $_REQUEST['respues'], 
+						$_REQUEST['celu'], $_REQUEST['_edad'], $_REQUEST['fot'], $_REQUEST['gene'], $_REQUEST['perfi']);
 
-	$c_usuario = new Controlador_Usuario();
-	$c_usuario->crear_usuario($num_id, $usuario, $password, $nombres, $apellidos, 
-						$direccion, $email, $tipoid, $ciudad, $pregunta, $respuesta, 
-						$celular, $edad, $foto, $genero, $perfil);
-
-	$m_usuario = new Modelo_Usuario($c_usuario);
-
-	$num_error = 2;
-	$num_error = $m_usuario->crear_Usuario();
-	/*echo '<p>docum = '.$num_id;
-	echo '<p>numerror = '.$num_error;
-	echo '<p>perfil = '.$perfil;*/
-	if($num_error == 1){
-		header("Location: ../pages/Crear_Usuario.php?gestion=1");
-	}else{
-		header("Location: ../pages/Crear_Usuario.php?gestion=".$num_error);
-	}
 	
 	
 
